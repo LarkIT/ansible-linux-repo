@@ -1,0 +1,32 @@
+---
+# tasks/main.yml
+# tasks file for ansible-linux-repo
+
+- name: Copy Artifactory password file
+  template:
+    src: artifactory_pass.j2
+    dest: /etc/yum/vars/artifactory_pass
+    owner: root
+    group: root
+    mode: '0600'
+  when: yum_repo_artifactory
+
+- name: Copy GPG key for {{ item.repo_name }}
+  copy:
+    src: RPM-GPG-KEY-{{ item.repo_name }}
+    dest: /etc/pki/rpm-gpg/RPM-GPG-KEY-{{ item.repo_name }}
+    owner: root
+    group: root
+    mode: '0644'
+  when: "item.repo_name == 'epel' or 
+         item.repo_name == 'postgres96'"
+  loop: "{{ yum_repos }}"
+
+- name: Add repo {{ item.repo_name }}
+  yum_repository:
+    name: "{{ item.repo_name }}"
+    state: "{{ item.repo_state }}"
+    description: "{{ item.repo_description | default(omit) }}"
+    baseurl: "{{ item.repo_baseurl | default(omit) }}"
+    gpgkey: "{{ item.repo_gpgkey | default(omit) }}"
+  loop: "{{ yum_repos }}"

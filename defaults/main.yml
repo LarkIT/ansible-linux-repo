@@ -1,0 +1,11 @@
+---
+# defaults/main.yml
+# defaults file for ansible-linux-repo
+yum_repos:
+  - repo_name: myrepo
+    repo_state: present
+    repo_description: My Repo Description
+    repo_baseurl: https://baseurl
+    repo_gpgkey: my-gpgkey-url
+    repo_copy_gpg_key_file: false
+    repo_gpg__key_file_name: RPM-GPG-KEY-{{ repo_name }} 
