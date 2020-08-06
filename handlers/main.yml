@@ -1,2 +1,7 @@
 ---
+# handlers/main.yml
 # handlers file for ansible-linux-repo
+- name: yum clean all
+  command: yum clean all
+  args: 
+    warn: false

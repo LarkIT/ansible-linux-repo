@@ -29,4 +29,5 @@
     description: "{{ item.repo_description | default(omit) }}"
     baseurl: "{{ item.repo_baseurl | default(omit) }}"
     gpgkey: "{{ item.repo_gpgkey | default(omit) }}"
+  notify: yum clean all
   loop: "{{ yum_repos }}"
