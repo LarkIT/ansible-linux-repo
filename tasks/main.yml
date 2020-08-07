@@ -25,7 +25,7 @@
 - name: Add repos
   yum_repository:
     name: "{{ item.repo_name }}"
-    state: "{{ item.repo_state | default(present) }}"
+    state: "{{ item.repo_state | default('present', true) }}"
     description: "{{ item.repo_description | default(omit) }}"
     baseurl: "{{ item.repo_baseurl | default(omit) }}"
     gpgkey: "{{ item.repo_gpgkey | default(omit) }}"
