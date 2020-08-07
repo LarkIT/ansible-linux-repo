@@ -9,3 +9,4 @@ yum_repos:
     repo_gpgkey: my-gpgkey-url
     repo_copy_gpg_key_file: false
     repo_gpg__key_file_name: RPM-GPG-KEY-{{ repo_name }} 
+yum_repos_additional: []

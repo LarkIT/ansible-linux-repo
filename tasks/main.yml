@@ -20,7 +20,7 @@
     mode: '0644'
   when: "item.repo_name == 'epel' or 
          item.repo_name == 'postgres96'"
-  loop: "{{ yum_repos }}"
+  loop: "{{ yum_repos + yum_repos_additional }}"
 
 - name: Add repo {{ item.repo_name }}
   yum_repository:
@@ -30,4 +30,4 @@
     baseurl: "{{ item.repo_baseurl | default(omit) }}"
     gpgkey: "{{ item.repo_gpgkey | default(omit) }}"
   notify: yum clean all
-  loop: "{{ yum_repos }}"
+  loop: "{{ yum_repos + yum_repos_additional }}"
